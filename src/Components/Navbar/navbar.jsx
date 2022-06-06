@@ -1,46 +1,68 @@
-import { NavLink } from "react-router-dom"; //importing navlink from router-dom
-import './navbar.css'; //importing navbar.css
-import React, { useState } from 'react';
+//importing navlink from router-dom
+import React, { useState } from "react";
+import {
+  Navbar,
+  NavbarBrand,
+  Collapse,
+  NavLink,
+  NavItem,
+  Nav,
+  Button,
+  NavbarToggler,
+} from "reactstrap";
 
-const Navbar = () => { //creating a function for navbar
-    const [navbar,setNavbar] = useState(false);
-    const ChangeBg = () => {
-        if(window.scrollY >=100) {
-            setNavbar(true)
-        }else{
-            setNavbar(false);
-        }
-    };
-    window.addEventListener("scroll", ChangeBg); 
-    return(
-        <>
-            <nav className={navbar ? "navbar navbar-expand fixed-top active" : "navbar navbar-expand fixed-top"}>
-                <NavLink to="/" className="navbar-brand"><span>S</span>ite</NavLink>
-                <div>
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/">Home</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/about">About</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/gallery">Gallery</NavLink>
-                        </li>
-                        <li className="navbar-item">
-                            <NavLink className="nav-link" to="/contact">Contact</NavLink>
-                        </li>
-                        <li className="navbar-item">
-                            <NavLink className="nav-link" to="/signup">Signup</NavLink>
-                        </li>
-                        <li className="navbar-item">
-                            <NavLink className="nav-link" to="/login">Login</NavLink>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </>
-    )
-}
+const NavBar = () => {
+  //creating a function for navbar
 
-export default Navbar;
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href=('/login');
+  };
+  const loginData = localStorage.getItem("token");
+  console.log(loginData);
+
+  return (
+    
+      <Navbar color="dark" dark expand="md" className="p-4" style={{fontSize:'20px'}}>
+        <NavbarBrand href="/">Site</NavbarBrand>
+        <NavbarToggler onClick={function noRefCheck() {}} />
+        <Collapse navbar>
+          <Nav className="me-auto" navbar>
+            <NavItem>
+              <NavLink href="/">Home</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/booking">Book Now</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/reservation">Reservation</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/gallery">Gallery </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/about">About </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/contact">Contact </NavLink>
+            </NavItem>
+          </Nav>
+          <Nav mr-auto>
+              <NavItem>
+                  <NavLink href="/dashboard">Dashboard</NavLink>
+              </NavItem>
+            {loginData ? (
+              <Button style={{ width: "90px" }} onClick={handleLogout}>
+                Logout
+              </Button>
+            ) : (
+              <NavLink href="/signup">SignUp</NavLink>
+            )}
+          </Nav>
+        </Collapse>
+      </Navbar>
+    
+  );
+};
+
+export default NavBar;

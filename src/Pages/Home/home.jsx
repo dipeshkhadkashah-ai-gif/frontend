@@ -18,7 +18,7 @@ const Home = () => { //creating a function for home
             </div>
         </div>
         {/* Custom Section of Home-Page */}
-        <div className="custom container">
+        {/* <div className="custom container">
             <div className="row">
                 <div className="col-sm-4">
                 </div>
@@ -34,7 +34,7 @@ const Home = () => { //creating a function for home
                 </div>
                 </div>
             </div>
-        </div>
+        </div> */}
         </>
     )
 }
